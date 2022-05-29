@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
 
 # from flask import
@@ -7,14 +7,19 @@ app = Flask(__name__)
 
 
 @app.route('/welcome', methods=["POST"])
-def welcome():  # put application's code here
-    return 'Welcome, '
+def welcome():
+    correct = "admin@gmail.com"
+    if request.method == "POST":
+        eml = request.form['email']
+    if correct == eml:
+        return "Welcome, " + eml
+    # put application's code here
+    else:
+        return 'Welcome, Anonymous'
 
 
 @app.route('/')
 def login_function():
-    # return render_template(index.html)
-    # return "Login Function tested!"
     return render_template("index.html", user="Test user")
 
 
